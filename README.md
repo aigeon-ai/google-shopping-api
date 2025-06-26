@@ -2,48 +2,59 @@
 
 ## Project Description
 
-The Aigeon AI Google Shopping API is a Python-based server application designed to facilitate seamless interaction with Google's Shopping API. This application allows users to perform detailed product searches on Google Shopping, leveraging various parameters to refine and tailor search results to specific needs. The server is built using the FastMCP framework, ensuring efficient and robust handling of search requests.
+The Aigeon AI Google Shopping API is a Python-based server application designed to interface with Google's Shopping search engine through the SerpAPI. This tool allows users to perform detailed and customizable product searches on Google Shopping, retrieving product listings and shopping results based on a variety of parameters.
 
 ## Features Overview
 
-- **Comprehensive Search Capabilities**: Execute Google Shopping searches with a wide range of customizable parameters.
-- **Location and Language Customization**: Specify geographic and linguistic preferences to tailor search results.
-- **Device-Specific Results**: Choose the device type for which the search results should be optimized.
-- **Advanced Search Options**: Utilize advanced search parameters for more precise results.
-- **Asynchronous and Cached Searches**: Support for asynchronous search execution and cache management.
-- **Enterprise Features**: Includes enterprise-level options like ZeroTrace mode for enhanced privacy.
+- **Customizable Search Queries**: Tailor your search queries with a range of parameters to refine results.
+- **Location-Based Searches**: Specify geographic locations or encoded locations for more accurate results.
+- **Advanced Search Options**: Utilize advanced search parameters and filters to narrow down results.
+- **Device-Specific Results**: Choose between desktop, tablet, or mobile views for search results.
+- **Asynchronous and Cached Searches**: Options to perform searches asynchronously or bypass cached results for fresh data.
+- **Enterprise Features**: Includes enterprise-level options such as ZeroTrace mode for enhanced privacy.
 
 ## Main Features and Functionality
 
-1. **Flexible Query Parameters**: The API supports a variety of parameters to refine search queries, including location, language, and device type.
-2. **Advanced Filtering**: Users can apply advanced search filters and parameters to narrow down results.
-3. **Pagination and Result Limits**: Control over pagination and the number of results returned per query.
-4. **Direct Product Links**: Option to include direct product links in search results, enhancing user experience.
-5. **Asynchronous Execution**: Ability to perform searches asynchronously, improving response times for users.
-6. **Enterprise Privacy Options**: ZeroTrace mode ensures no server-side storage, catering to enterprise privacy needs.
+The primary functionality of this application is to perform searches on Google Shopping using the SerpAPI. Users can specify a wide range of parameters to customize their search experience:
 
-## Main Functions Description
+- **Query (`q`)**: The core search term or phrase.
+- **Location (`location`)**: Define the origin of the search by specifying a city or region.
+- **Encoded Location (`uule`)**: Use Google's encoded location parameter for precise geographic targeting.
+- **Google Domain (`google_domain`)**: Specify the Google domain to use for the search (e.g., google.com).
+- **Country Code (`gl`)**: Two-letter code for geographic targeting.
+- **Language Code (`hl`)**: Two-letter code for language-specific results.
+- **Advanced Search (`tbs`)**: Use advanced search parameters for more refined queries.
+- **Search Filters (`shoprs`)**: Apply specific filters to the search results.
+- **Direct Links (`direct_link`)**: Option to include direct product links in results.
+- **Pagination (`start`)**: Control result pagination by specifying an offset.
+- **Result Count (`num`)**: Define the maximum number of results to return.
+- **Device Type (`device`)**: Choose the device type for viewing results.
+- **Cache Control (`no_cache`)**: Force fresh results by ignoring cached versions.
+- **Asynchronous Search (`aasync`)**: Submit searches asynchronously for faster response.
+- **ZeroTrace Mode (`zero_trace`)**: Enterprise feature for privacy-focused searches.
+
+## Main Function Description
 
 ### `search_google_shopping`
 
-The core function of this application, `search_google_shopping`, allows users to perform a detailed search on Google Shopping. Below is a breakdown of its parameters and functionality:
+This function performs a search on Google Shopping using the specified parameters. It constructs a payload with the provided options and sends a request to the SerpAPI endpoint. The function returns the search results in JSON format.
 
-- **q**: The primary search query string, required for executing a search.
-- **location**: Optional parameter to specify the origin of the search, enhancing location-specific results.
-- **uule**: An optional Google-encoded location parameter, mutually exclusive with `location`.
-- **google_domain**: Specify the Google domain to use, defaulting to `google.com`.
-- **gl**: Optional geographic targeting using a two-letter country code.
-- **hl**: Optional language targeting using a two-letter language code.
-- **tbs**: Allows for advanced search parameters not available in standard queries.
-- **shoprs**: A helper ID for setting search filters, used in conjunction with an updated query parameter.
-- **direct_link**: When enabled, attempts to include direct product links in the results.
-- **start**: Controls pagination by setting the result offset.
-- **num**: Limits the number of results returned, with a default of 60.
-- **device**: Specifies the device type for which the results should be optimized.
-- **no_cache**: Forces fresh results by ignoring cached versions.
-- **aasync**: Enables asynchronous search execution.
-- **zero_trace**: An enterprise feature that ensures no server-side storage of search data.
+**Parameters:**
 
-The function constructs a payload with the provided parameters, excluding any that are `None`, and sends a request to the Google Shopping API. The response is then returned in JSON format, providing the search results.
+- **`q`**: (str, optional) The search query.
+- **`location`**: (str, optional) The location for the search.
+- **`uule`**: (str, optional) Google encoded location.
+- **`google_domain`**: (str, optional) The Google domain to use.
+- **`gl`**: (str, optional) Country code for geographic targeting.
+- **`hl`**: (str, optional) Language code for search results.
+- **`tbs`**: (str, optional) Advanced search parameters.
+- **`shoprs`**: (str, optional) Helper ID for search filters.
+- **`direct_link`**: (bool, optional) Include direct product links.
+- **`start`**: (int, optional) Result offset for pagination.
+- **`num`**: (int, optional) Maximum number of results.
+- **`device`**: (Literal["desktop", "tablet", "mobile"], optional) Device type for results.
+- **`no_cache`**: (bool, optional) Force fresh results.
+- **`aasync`**: (bool, optional) Submit search asynchronously.
+- **`zero_trace`**: (bool, optional) Enable ZeroTrace mode for privacy.
 
-The server is initiated using the `mcp.run(transport="stdio")` command, which starts the FastMCP server to handle incoming search requests.
+The function ensures that only non-None parameters are included in the request, optimizing the search query for the best possible results.
